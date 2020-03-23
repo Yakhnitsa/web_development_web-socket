@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello WebSocket</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!--<script src="/app.js"></script>-->
+</head>
+<body>
+
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2>
+</noscript>
+
+<div id="main-content" class="container">
+    <div id="app" class="container">
+        <h4>Web Socket на Vue.js</h4>
+        <div class="row">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label>Состояние подключения</label>
+                    <button class="btn btn-default" @click="connect" :disabled="connected">Подключиться</button>
+                    <button class="btn btn-default" @click="disconnect" :disabled="!connected">Отключиться</button>
+                </div>
+            </div>
+        </div>
+        <div class ="row mx-1">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label >Введите текст сообщения</label>
+                    <input type="text" class="form-control" v-model="message" placeholder="Your name here...">
+                </div>
+                <button @click="sendMessage" class="btn btn-default" :disabled="!connected" >Send</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Список сообщений</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="message in messages">
+                            <td>{{message}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="task-app">
+        <h3>{{greeting}}</h3>
+        <div class ="row mx-1">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label >Добавить новую задачу</label>
+                    <input type="text" class="form-control" v-model="task" placeholder="Введите задание здесь">
+                </div>
+                <button @click="addTask" class="btn btn-default">Добавить</button>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Список заданий на сегодня</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="task in tasks">
+                        <td>{{task}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<script src="/vue-app.js"></script>
+</body>
+</html>
